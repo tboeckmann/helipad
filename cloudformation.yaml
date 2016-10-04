@@ -15,14 +15,6 @@ Parameters:
   RootDomainName:
     Description: Domain name for your website (example.com)
     Type: String
-#   InstanceTypeParameter: 
-#     Type: String
-#     Default: t2.micro
-#     AllowedValues: 
-#       - t2.micro
-#       - m1.small
-#       - m1.large
-#     Description: Enter t1.micro, m1.small, or m1.large. Default is t1.micro.
 
 Mappings:
   RegionMap:
@@ -50,8 +42,15 @@ Mappings:
     sa-east-1:
       S3hostedzoneID: Z31GFT0UA1I2HV
       websiteendpoint: s3-website-sa-east-1.amazonaws.com
-            
+
 Resources:
+  DNS: 
+    Type: "AWS::Route53::HostedZone"
+    Properties: 
+      HostedZoneConfig: 
+        Comment: "My hosted zone for Helipad"
+      Name: !Ref RootDomainName
+        
   RootBucket:
     Type: AWS::S3::Bucket
     Properties:
