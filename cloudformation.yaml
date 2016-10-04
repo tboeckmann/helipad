@@ -15,6 +15,14 @@ Parameters:
   RootDomainName:
     Description: Domain name for your website (example.com)
     Type: String
+  HelipadDynamoDBTableReads:
+    Description: DynamoDB table ReadCapacityUnits this will be how you are charged on DynamoDB
+    Default: 1
+    Type: Number
+  HelipadDynamoDBTableWrites:
+    Description: DynamoDB table WriteCapacityUnits this will be how you are charged on DynamoDB
+    Type: Number
+    Default: 1
 
 Mappings:
   RegionMap:
@@ -117,6 +125,36 @@ Resources:
       AuthorizationType: "NONE"
       Integration: 
         Type: "MOCK"
+  HelipadDynamoDBTable: 
+    Type: "AWS::DynamoDB::Table"
+    Properties: 
+      AttributeDefinitions: 
+        - 
+          AttributeName: "user_id"
+          AttributeType: "S"
+        # - 
+        #   AttributeName: "email"
+        #   AttributeType: "S"
+        # - 
+        #   AttributeName: "phone"
+        #   AttributeType: "S"
+        # - 
+        #   AttributeName: "first_name"
+        #   AttributeType: "S"
+        # - 
+        #   AttributeName: "last_name"
+        #   AttributeType: "S"
+        # - 
+        #   AttributeName: "country"
+        #   AttributeType: "s"
+      KeySchema: 
+        - 
+          AttributeName: "user_id"
+          KeyType: "HASH"
+      ProvisionedThroughput: 
+        ReadCapacityUnits: !Ref HelipadDynamoDBTableReads
+        WriteCapacityUnits: !Ref HelipadDynamoDBTableWrites
+      TableName: "HelipadUserTable"      
 Outputs:
   WebsiteURL:
     Value: !GetAtt RootBucket.WebsiteURL
