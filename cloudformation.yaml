@@ -91,6 +91,32 @@ Resources:
         TTL: 900
         ResourceRecords:
         - !GetAtt WWWBucket.DomainName
+  HelipadRestAPI: 
+    Type: "AWS::ApiGateway::RestApi"
+    Properties: 
+      Description: "Helipad super simple API"
+      Name: "HelipadRestAPI"
+  UserApiResource: 
+    Type: "AWS::ApiGateway::Resource"
+    Properties: 
+      RestApiId: 
+        Ref: "HelipadRestAPI"
+      ParentId: 
+        Fn::GetAtt: 
+          - "HelipadRestAPI"
+          - "RootResourceId"
+      PathPart: "user"
+  UserCreateMethod: 
+    Type: "AWS::ApiGateway::Method"
+    Properties: 
+      RestApiId: 
+        Ref: "HelipadRestAPI"
+      ResourceId: 
+        Ref: UserApiResource
+      HttpMethod: "POST"
+      AuthorizationType: "NONE"
+      Integration: 
+        Type: "MOCK"
 Outputs:
   WebsiteURL:
     Value: !GetAtt RootBucket.WebsiteURL
