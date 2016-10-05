@@ -162,6 +162,16 @@ Resources:
             Action:
             - logs:*
             Resource: arn:aws:logs:*:*:*  
+  CreateUserFunction:
+    Type: AWS::Lambda::Function
+    Properties:
+      Handler: lambda_handler
+      Role: !GetAtt LambdaExecutionRole.Arn
+      Code:
+        ZipFile: !Sub |
+          def lambda_handler(event, context):
+            print("Received event: " + json.dumps(event, indent=2))          
+      Runtime: python2.7
 Outputs:
   WebsiteURL:
     Value: !GetAtt RootBucket.WebsiteURL
