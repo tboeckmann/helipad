@@ -1,0 +1,38 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters: 
+  RootDomainName:
+    Description: Domain name for your website (example.com)
+    Type: String
+
+Resources:        
+  RootBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      # BucketName: !Ref RootDomainName
+      AccessControl: PublicRead
+      WebsiteConfiguration:
+        IndexDocument: index.html
+        ErrorDocument: 404.html
+  WWWBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      # BucketName: !Sub
+      #     - www.${Domain}
+      #     - Domain: !Ref RootDomainName
+      AccessControl: BucketOwnerFullControl
+      WebsiteConfiguration:
+        RedirectAllRequestsTo:
+          HostName: !Ref RootBucket
+
+Outputs:
+  RootDomainName:
+    Value: !GetAtt RootBucket.DomainName
+    Description: Domain name for for website hosted on S3
+    Export:
+      Name: HelipadRootDomainName
+  WWWDomainName:
+    Value: !GetAtt WWWBucket.DomainName
+    Description: Domain name for for www. subdomain name website hosted on S3
+    Export:
+      Name: HelipadWWWDomainName
