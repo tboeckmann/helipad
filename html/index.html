@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html ng-app="helipadApp">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Helipad - Fast, Easy Landing Pages</title>
+        <!-- Optional theme: Bootswatch Paper -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" crossorigin="anonymous">
+        <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+        <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+        <!--[if lt IE 9]>
+          <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+          <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+        <![endif]-->
+        <!-- Angular 1.5 -->
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.8/angular.min.js"></script>
+        <script src="js/helipad.js"></script>
+    </head>
+    <body ng-controller="helipadController as helipad">
+      <!-- Navbar -->
+
+        <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-cloak> 
+          <div class="container-fluid">
+            <div class="container">
+
+              <div class="navbar-header"> 
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> 
+                  <span class="sr-only">Toggle navigation</span> 
+                  <span class="icon-bar"></span> 
+                  <span class="icon-bar"></span> 
+                  <span class="icon-bar"></span> 
+                </button>                         
+                <a class="navbar-brand" href="#">{{ helipad.page.brandName }}</a> 
+              </div>                     
+              
+              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
+                <ul class="nav navbar-nav"> 
+                  <li class="active">
+                    <a href="#">About Us</a>
+                  </li>                             
+                  <li>
+                    <a href="#">Contact</a>
+                  </li>                   
+                </ul>                         
+                <ul class="nav navbar-nav navbar-right"> 
+                  <li>
+                    <a href="#" class="btn btn-default">{{ helipad.page.signUpText }}</a>
+                  </li>                           
+                </ul>                         
+              </div>                     
+            </div>                     
+          </div>                 
+        </nav>
+      <!-- End Navbar -->
+
+      <!-- Form -->
+        <div class="container">
+          <div class="row">
+            <div class="col-lg-6 col-lg-offset-3">
+              <form class="form-horizontal">
+                <fieldset>
+                  <div class="form-group" ng-if="helipad.fields.email.enabled">
+                    <label for="email" class="col-lg-2 control-label">Email</label>
+                    <div class="col-lg-10">
+                      <input type="email" class="form-control" id="email" placeholder="Email">
+                    </div>
+                  </div>
+                  <div class="form-group" ng-if="helipad.fields.first_name.enabled">
+                    <label for="first_name" class="col-lg-2 control-label">First Name</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="first_name" placeholder="First Name">
+                    </div>
+                  </div>
+                  <div class="form-group" ng-if="helipad.fields.last_name.enabled">
+                    <label for="last_name" class="col-lg-2 control-label">Last Name</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="last_name" placeholder="Last Name">
+                    </div>
+                  </div>
+                  <div class="form-group" ng-if="helipad.fields.company.enabled">
+                    <label for="company" class="col-lg-2 control-label">Company</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="company" placeholder="Company">
+                    </div>
+                  </div>
+                  <div class="form-group" ng-if="helipad.fields.telephone.enabled">
+                    <label for="telephone" class="col-lg-2 control-label">Telephone</label>
+                    <div class="col-lg-10">
+                      <input type="text" class="form-control" id="telephone" placeholder="telephone">
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <div class="col-lg-10 col-lg-offset-2">
+                      <button type="reset" class="btn btn-default">Cancel</button>
+                      <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                  </div>
+
+                </fieldset>
+              </form>
+            </div>
+          </div>
+        </div>
+      <!-- End Form -->
+
+    </body>
+    <!-- Latest compiled and minified JavaScript loading after rest of page-->
+    <script src="http://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
+    <!-- Bootstrap JS -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <!-- Activate any tooltips or popovers (see 'Opt In Functionality', http://getbootstrap.com/javascript/#tooltips)  -->
+    <script type="text/javascript">
+    $(document).ready(function() {
+     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+     $("body").popover({ selector: '[data-toggle=popover]' });
+    });
+  </script>
+</html>
