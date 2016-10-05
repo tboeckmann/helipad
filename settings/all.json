@@ -1,0 +1,33 @@
+{
+	"fields": {
+		"email": {
+			"enabled": true,
+			"label": "Email",
+			"required": true
+		},
+		"first_name": {
+			"enabled": false,
+			"label": "First Name",
+			"required": false
+		},
+		"last_name": {
+			"enabled": true,
+			"label": "Last Name",
+			"required": false
+		},
+		"company": {
+			"enabled": false,
+			"label": "company",
+			"required": false
+		},
+		"telephone": {
+			"enabled": false,
+			"label": "company",
+			"required": false
+		}
+	},
+	"page": {
+		"signup_text": "Sign up",
+		"title": "Page title"
+	}
+}
