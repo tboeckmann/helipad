@@ -60,31 +60,31 @@
             <div class="col-lg-6 col-lg-offset-3">
               <form class="form-horizontal">
                 <fieldset>
-                  <div class="form-group" ng-show="helipad.fields.email.enabled">
+                  <div class="form-group" ng-if="helipad.fields.email.enabled">
                     <label for="email" class="col-lg-2 control-label">Email</label>
                     <div class="col-lg-10">
                       <input type="email" class="form-control" id="email" placeholder="Email">
                     </div>
                   </div>
-                  <div class="form-group" ng-show="helipad.fields.first_name.enabled">
+                  <div class="form-group" ng-if="helipad.fields.first_name.enabled">
                     <label for="first_name" class="col-lg-2 control-label">First Name</label>
                     <div class="col-lg-10">
                       <input type="text" class="form-control" id="first_name" placeholder="First Name">
                     </div>
                   </div>
-                  <div class="form-group" ng-show="helipad.fields.last_name.enabled">
+                  <div class="form-group" ng-if="helipad.fields.last_name.enabled">
                     <label for="last_name" class="col-lg-2 control-label">Last Name</label>
                     <div class="col-lg-10">
                       <input type="text" class="form-control" id="last_name" placeholder="Last Name">
                     </div>
                   </div>
-                  <div class="form-group" ng-show="helipad.fields.company.enabled">
+                  <div class="form-group" ng-if="helipad.fields.company.enabled">
                     <label for="company" class="col-lg-2 control-label">Company</label>
                     <div class="col-lg-10">
                       <input type="text" class="form-control" id="company" placeholder="Company">
                     </div>
                   </div>
-                  <div class="form-group" ng-show="helipad.fields.telephone.enabled">
+                  <div class="form-group" ng-if="helipad.fields.telephone.enabled">
                     <label for="telephone" class="col-lg-2 control-label">Telephone</label>
                     <div class="col-lg-10">
                       <input type="text" class="form-control" id="telephone" placeholder="telephone">
