@@ -91,11 +91,7 @@ Resources:
         AliasTarget:
           HostedZoneId: !FindInMap [ RegionMap, !Ref 'AWS::Region', S3hostedzoneID]
           DNSName: !FindInMap [ RegionMap, !Ref 'AWS::Region', websiteendpoint]
-      # -
-      #   Name: !Sub
-      #       - api.${Domain}
-      #       - Domain: !Ref RootDomainName
-      -              
+      -
         Name: !Sub
             - www.${Domain}
             - Domain: !Ref RootDomainName
@@ -136,6 +132,21 @@ Resources:
         - 
           AttributeName: "user_id"
           AttributeType: "S"
+        # - 
+        #   AttributeName: "email"
+        #   AttributeType: "S"
+        # - 
+        #   AttributeName: "phone"
+        #   AttributeType: "S"
+        # - 
+        #   AttributeName: "first_name"
+        #   AttributeType: "S"
+        # - 
+        #   AttributeName: "last_name"
+        #   AttributeType: "S"
+        # - 
+        #   AttributeName: "country"
+        #   AttributeType: "s"
       KeySchema: 
         - 
           AttributeName: "user_id"
@@ -143,69 +154,12 @@ Resources:
       ProvisionedThroughput: 
         ReadCapacityUnits: !Ref HelipadDynamoDBTableReads
         WriteCapacityUnits: !Ref HelipadDynamoDBTableWrites
-      TableName: "HelipadUserTable"    
-  HelipadApiStage: 
-    # DependsOn" : ["ApiGatewayAccount"],
-    DependsOn: "UserCreateMethod"
-    Type: "AWS::ApiGateway::Stage"
-    Properties":
-      DeploymentId: {"Ref": "ApiDeployment"},
-    "MethodSettings": [{
-      "DataTraceEnabled": true,
-      "HttpMethod": "*",
-      "LoggingLevel": "INFO",
-      "ResourcePath": "/*"
-    }],
-    "RestApiId": {"Ref": "GreetingApi"},
-    "StageName": "LATEST"
-  }
-}
-
-  # HelipadDeployment: 
-  #   DependsOn: "UserCreateMethod"
-  #   Type: "AWS::ApiGateway::Deployment"
-  #   Properties: 
-  #     RestApiId: 
-  #       Ref: "HelipadRestAPI"
-  #     Description: "Helipad API deployment"
-  #     StageName: "Prod"
-
-  # HelipadBasePathMapping:
-  #   Type: "AWS::ApiGateway::BasePathMapping"
-  #   Properties:
-  #     BasePath: "api"
-  #     DomainName: "helipad.io"
-  #         # - api.${Domain}
-  #         # - Domain: !Ref RootDomainName
-
-  #     RestApiId: 
-  #       Ref: "HelipadRestAPI"
-      # Stage: "Prod"
-  # Prod: 
-  #   Type: "AWS::ApiGateway::Stage"
-  #   Properties: 
-  #     StageName: "Prod"
-  #     Description: "Prod Stage"
-  #     RestApiId: 
-  #       Ref: "HelipadRestAPI"
-  #     DeploymentId: 
-  #       Ref: "HelipadDeployment"
-  #     Variables: 
-  #       Stack: "Prod"
-  #     MethodSettings: 
-  #       - 
-  #         ResourcePath: "/"
-  #         HttpMethod: "GET"
-  #         MetricsEnabled: "true"
-  #         DataTraceEnabled: "true"
-  #       - 
-  #         ResourcePath: "/user"
-  #         HttpMethod: "POST"
-  #         MetricsEnabled: "true"
-  #         DataTraceEnabled: "true"
-  #         ThrottlingBurstLimit: "999"
-
+      TableName: "HelipadUserTable"      
 Outputs:
   WebsiteURL:
     Value: !GetAtt RootBucket.WebsiteURL
     Description: URL for website hosted on S3
+  ZoneId: 
+    Description: "Route53 ZoneId for TLD"
+    Value: !Ref "DNS" 
+    
