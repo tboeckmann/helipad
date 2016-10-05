@@ -14,7 +14,7 @@ With AWS if you dont already have one
 ## Supporting functions
 
 `
-aws cloudformation create-stack --stack-name helipad-supporting-functions --template-body file://cloudformation/supporting_functions.yaml --capabilities CAPABILITY_IAM
+aws cloudformation create-stack --stack-name helipad-supporting-functions --template-body file://cloudformation/01_supporting_functions.yaml --capabilities CAPABILITY_IAM
 `
 
 
