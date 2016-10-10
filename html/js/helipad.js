@@ -1,10 +1,8 @@
 angular.module('helipadApp', [])
   .controller('helipadController', function() {
     var helipad = this;
-    helipad.company = {
-      "name": "placeholder"
-    };
-    
+
+  
     helipad.page = {
       "brandName": "Helipad.io",
       "signUpTitle": "Get notified about the latest updates...",
