@@ -26,6 +26,76 @@ Update nameserver settings to make domain work
 ## Infrastructure
 Uses cloud formation so its much easier
 
+# Landing Page Customization
+
+## Changing \<head> content
+HTML \<head> tags are used by search engines to display page information. Not all search engines run scripts on the page, so the tags need to be updated in the `html\index.html` file.
+
+## Changing auto-generated page content
+
+Content that appears on page is located in: `html\js\helipad.js`. To change this, simply edit the JSON fields.
+
+
+## Changing content blocks
+
+To change the content blocks on the page, find the block in `html\index.html` file and edit the text in HTML.
+
+## Changing auto-generated form fields
+The form fields are configured in `html\js\helipad.js` under the JSON section: `helipad.fields`
+
+### Enabling/ disabling form fields
+To change whether a form field is displayed on the form, edit the form field found under `helipad.fields`.  To change the field, toggle the `"enabled"` key to `true` or `false`.
+
+The following example <strong>enables</strong> the company form field from being displayed:
+
+```
+"company": {
+    "enabled": true,
+    "label": "company",
+    "required": false
+}
+```
+
+The following example <strong>disables</strong> the company form field from being displayed:
+
+```
+"company": {
+    "enabled": false,
+    "label": "company",
+    "required": false
+}
+```
+
+### Changing if form fields are required to be filled in
+To change whether a form field is required to be filled in, edit the form field found under `helipad.fields`.  To change the field, toggle the `"required"` key to `true` or `false`.
+
+The following example <strong>requires</strong> the company form field to be completed:
+
+```
+"company": {
+    "enabled": true,
+    "label": "company",
+    "required": true
+}
+```
+
+The following example <strong>does not require</strong> the company form field to be completed:
+
+```
+"company": {
+    "enabled": true,
+    "label": "company",
+    "required": false
+}
+```
+NOTE: Ensure that `"enabled"` is set to `true` to display the form field.
+
+
 
 # Thanks to
-https://github.com/gilt/cloudformation-helpers of there helper functions
+https://github.com/gilt/cloudformation-helpers for their helper functions.
+
+http://getbootstrap.com/ for creating and maintaining Twitter Bootstrap.
+
+https://github.com/thomaspark/bootswatch for awesome, simple Bootstrap themes.
+
