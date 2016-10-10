@@ -4,9 +4,14 @@
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        <title>Helipad - Fast, Easy Landing Pages</title>
+        <meta name="author" content="Tim Boeckmann, Rob de Feo">
+        <meta name="description" content="Fast, easy, landing pages with simple templates, making it easy to test ideas and start finding your audience and customers.">
+        <title>Helipad.io: Fast, easy, landing pages for startup marketing</title>
+        
         <!-- Optional theme: Bootswatch Paper -->
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" crossorigin="anonymous">
+        <!-- Custom styles for this template -->
+        <link rel="stylesheet" href="css/helipad-template.css">
         <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
         <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
         <!--[if lt IE 9]>
@@ -18,103 +23,210 @@
         <script src="js/helipad.js"></script>
     </head>
     <body ng-controller="helipadController as helipad">
-      <!-- Navbar -->
-
+        <!-- Navbar -->
         <nav class="navbar navbar-default navbar-fixed-top" role="navigation" ng-cloak> 
-          <div class="container-fluid">
+            <div class="container">
+                <div class="navbar-header"> 
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> 
+                        <span class="sr-only">Toggle navigation</span> 
+                        <span class="icon-bar"></span> 
+                        <span class="icon-bar"></span> 
+                        <span class="icon-bar"></span> 
+                    </button>                     
+                    <a class="navbar-brand" href="#">{{ helipad.page.brandName }}</a> 
+                </div>                 
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
+                    <ul class="nav navbar-nav"> 
+                        <li class="active">
+                            <a href="#why-helipad">Why {{helipad.page.brandName}}</a>
+                        </li>                         
+                        <li>
+                            <a href="#more-info">More Information</a>
+                        </li>                         
+                    </ul>                     
+                    <ul class="nav navbar-nav navbar-right"> 
+                        <li>
+                            <a href="#sign-up">{{ helipad.page.signUpText }}</a>
+                        </li>                         
+                    </ul>                     
+                </div>                 
+            </div>             
+        </nav>
+        <!-- End Navbar -->
+        <!-- Form -->
+        <header class="helipad-header">
             <div class="container">
 
-              <div class="navbar-header"> 
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1"> 
-                  <span class="sr-only">Toggle navigation</span> 
-                  <span class="icon-bar"></span> 
-                  <span class="icon-bar"></span> 
-                  <span class="icon-bar"></span> 
-                </button>                         
-                <a class="navbar-brand" href="#">{{ helipad.page.brandName }}</a> 
-              </div>                     
-              
-              <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1"> 
-                <ul class="nav navbar-nav"> 
-                  <li class="active">
-                    <a href="#">About Us</a>
-                  </li>                             
-                  <li>
-                    <a href="#">Contact</a>
-                  </li>                   
-                </ul>                         
-                <ul class="nav navbar-nav navbar-right"> 
-                  <li>
-                    <a href="#" class="btn btn-default">{{ helipad.page.signUpText }}</a>
-                  </li>                           
-                </ul>                         
-              </div>                     
-            </div>                     
-          </div>                 
-        </nav>
-      <!-- End Navbar -->
-
-      <!-- Form -->
-        <div class="container">
-          <div class="row">
-            <div class="col-lg-6 col-lg-offset-3">
-              <form class="form-horizontal">
-                <fieldset>
-                  <div class="form-group" ng-if="helipad.fields.email.enabled">
-                    <label for="email" class="col-lg-2 control-label">Email</label>
-                    <div class="col-lg-10">
-                      <input type="email" class="form-control" id="email" placeholder="Email">
+                <div class="row">
+                    <div class="col-lg-7">
+                        <h1>
+                            {{helipad.page.headerTitle}}
+                        </h1>
+                        <div class="row">
+                            <div class="col-lg-5">
+                                <div class="helipad-header-image-holder">
+                                    <img src="img/helipad.svg" class="helipad-header-image">
+                                </div>
+                            </div>
+                            <div class="col-lg-7">
+                                <h1>
+                                    <small ng-if="helipad.page.hasHeaderSubtitle()">{{ helipad.page.headerSubtitle }}</small>
+                                </h1>
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="form-group" ng-if="helipad.fields.first_name.enabled">
-                    <label for="first_name" class="col-lg-2 control-label">First Name</label>
-                    <div class="col-lg-10">
-                      <input type="text" class="form-control" id="first_name" placeholder="First Name">
+                    <div class="col-lg-5">
+                        <div class="panel panel-default">
+                            <div class="panel-body">
+                                <div ng-if="helipad.page.hasSignUpTitle()">
+                                    <h4>{{helipad.page.signUpTitle}}</h4>
+                                </div>
+                                <!-- Form -->
+                                    <form id="sign-up" class="form-horizontal">
+                                        <fieldset>
+                                            <div class="form-group" ng-if="helipad.fields.email.enabled">
+                                                <label for="email" class="col-lg-4 control-label">Email</label>
+                                                <div class="col-lg-8">
+                                                    <input type="email" class="form-control" id="email" placeholder="Email">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-if="helipad.fields.first_name.enabled">
+                                                <label for="first_name" class="col-lg-4 control-label">First Name</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="first_name" placeholder="First Name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-if="helipad.fields.last_name.enabled">
+                                                <label for="last_name" class="col-lg-4 control-label">Last Name</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="last_name" placeholder="Last Name">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-if="helipad.fields.company.enabled">
+                                                <label for="company" class="col-lg-4 control-label">Company</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="company" placeholder="Company">
+                                                </div>
+                                            </div>
+                                            <div class="form-group" ng-if="helipad.fields.telephone.enabled">
+                                                <label for="telephone" class="col-lg-4 control-label">Telephone</label>
+                                                <div class="col-lg-8">
+                                                    <input type="text" class="form-control" id="telephone" placeholder="telephone">
+                                                </div>
+                                            </div>
+                                            <div class="form-group">
+                                                <div class="col-lg-3 col-lg-offset-9">
+                                                    <button type="submit" class="btn btn-success">{{helipad.page.signUpText}}</button>
+                                                </div>
+                                            </div>
+                                        </fieldset>
+                                    </form>
+                                </div>
+                                <!-- End Form -->
+                            </div>
+                        </div>
                     </div>
-                  </div>
-                  <div class="form-group" ng-if="helipad.fields.last_name.enabled">
-                    <label for="last_name" class="col-lg-2 control-label">Last Name</label>
-                    <div class="col-lg-10">
-                      <input type="text" class="form-control" id="last_name" placeholder="Last Name">
-                    </div>
-                  </div>
-                  <div class="form-group" ng-if="helipad.fields.company.enabled">
-                    <label for="company" class="col-lg-2 control-label">Company</label>
-                    <div class="col-lg-10">
-                      <input type="text" class="form-control" id="company" placeholder="Company">
-                    </div>
-                  </div>
-                  <div class="form-group" ng-if="helipad.fields.telephone.enabled">
-                    <label for="telephone" class="col-lg-2 control-label">Telephone</label>
-                    <div class="col-lg-10">
-                      <input type="text" class="form-control" id="telephone" placeholder="telephone">
-                    </div>
-                  </div>
-
-                  <div class="form-group">
-                    <div class="col-lg-10 col-lg-offset-2">
-                      <button type="reset" class="btn btn-default">Cancel</button>
-                      <button type="submit" class="btn btn-primary">Submit</button>
-                    </div>
-                  </div>
-
-                </fieldset>
-              </form>
+                </div>
             </div>
-          </div>
-        </div>
-      <!-- End Form -->
+        </header>
+        <!-- End Navbar -->
+        
+    <!-- Main Content -->
 
+        <!-- Why Section -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-header">
+                        <h2 id="why-helipad">Why {{helipad.page.brandName}}</h2>
+                    </div>
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="helipad-display-section">
+                            <img src="img/heli7.svg" style="width: 50%">
+                        </div>
+                    </div>
+                    <div class="col-lg-4 col-sm-4">
+                        <h5 class="page-header">Easy &amp; Fast</h5>
+                        <p>Helipad takes the pain out of landing pages. Launch in a few clicks. Elimate wasted time fiddling with code, deployment and hosting.</p>
+                    </div>
+                    <div class="col-lg-4 col-sm-4">
+                        <h5 class="page-header">Experiment Quickly</h5>
+                        <p>Send traffic to your landing pages, experiment, test, prove ideas and collect early user data.</p>
+                    </div>
+                    <div class="col-lg-4 col-sm-4">
+                        <h5 class="page-header">Focus On Your Audience</h5>
+                        <p>Work on attracting and growing a relevant audience, helping you get early traction for your idea. Fast.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Why Section  -->
+        
+        <!-- Contact  -->
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="page-header">
+                        <h2 id="more-info">More Information</h2>
+                    </div>
+                    <div class="col-lg-8 col-lg-offset-2">
+                        <div class="helipad-display-section">
+                            <img src="img/heli4.svg" style="width: 50%">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5 class="page-header">Choice Of Templates</h5>
+                                <p>To help you get started easily, Helipad comes with some simple templates. Simply pick a theme and add your content.</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5 class="page-header">Customized Form Fields</h5>
+                                <p>Choose which form fields to include on the page to maximize conversion.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5 class="page-header">Automatic Deployment</h5>
+                                <p>Helipad has been configured for AWS Cloudformation, so it's preconfigured for deployment.</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5 class="page-header">Simple Configuration</h5>
+                                <p>Configuration of DNS, hosting and database is automatic, so you need to spend time on configuration.</p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-6 col-lg-offset-3">
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <h5 class="page-header">Easy Data Management</h5>
+                                <p>User sign-ups are stored in DynamoDB's document database. Access to information is easy, through the AWS console.</p>
+                            </div>
+                            <div class="col-sm-6">
+                                <h5 class="page-header">Data Stored Securely</h5>
+                                <p>From the outset, your data is stored securely with admin-only access by default.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- End Contact  -->
+
+    <!-- End Main Content -->
     </body>
+    
     <!-- Latest compiled and minified JavaScript loading after rest of page-->
     <script src="http://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
     <!-- Bootstrap JS -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
     <!-- Activate any tooltips or popovers (see 'Opt In Functionality', http://getbootstrap.com/javascript/#tooltips)  -->
     <script type="text/javascript">
-    $(document).ready(function() {
-     $("body").tooltip({ selector: '[data-toggle=tooltip]' });
-     $("body").popover({ selector: '[data-toggle=popover]' });
-    });
-  </script>
+        $(document).ready(function() {
+         $("body").tooltip({ selector: '[data-toggle=tooltip]' });
+         $("body").popover({ selector: '[data-toggle=popover]' });
+        });
+    </script>
 </html>
