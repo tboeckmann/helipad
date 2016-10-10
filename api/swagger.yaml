@@ -13,13 +13,13 @@ basePath: /v1
 produces:
   - application/json
 paths:
-  /users{user-id}:
+  /users/{user_id}:
     put:
       summary: Create user
       description: |
         Creates the new user.
       parameters:
-        - name: user-id
+        - name: user_id
           in: path
           description: ID of user to create
           required: true

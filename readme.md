@@ -21,13 +21,20 @@ With AWS if you dont already have one
 
 1. We need some lambda functions to help with our future Cloudformation scripts, we can create the lambda functions with a cloudformation template `aws cloudformation create-stack --stack-name helipad-supporting-functions --template-body file://cloudformation/01_supporting_functions.yaml --capabilities CAPABILITY_IAM`
 
-2. Create buckets for website hosting, `aws cloudformation create-stack --stack-name helipad-website-buckets --template-body file://cloudformation/02_website_buckets.yaml --parameters ParameterKey=RootDomainName,ParameterValue=helipad.com`
+2. Create buckets for website hosting and storing API swagger file and lambda functions, `aws cloudformation create-stack --stack-name helipad-website-buckets --template-body file://cloudformation/02_website_buckets.yaml --parameters ParameterKey=RootDomainName,ParameterValue=helipad.com`
 
-3. Create dynamodb tables, `aws cloudformation create-stack --stack-name helipad-dynamodb --template-body file://cloudformation/03_dynamodb_tables.yaml`
+3. Wait for stack to finish creating and create dynamodb tables, `aws cloudformation wait stack-create-complete --stack-name helipad-website-buckets | aws cloudformation create-stack --stack-name helipad-dynamodb --template-body file://cloudformation/03_dynamodb_tables.yaml`
+
+5. Sync S3 buckets `aws s3 sync html $(echo s3://)$(aws cloudformation describe-stacks --stack-name helipad-website-buckets --query 'Stacks[].Outputs[?OutputKey==`RootBucketName`].OutputValue' --output text)`
+
+6. Sync API bucket `aws s3 sync api $(echo s3://)$(aws cloudformation describe-stacks --stack-name helipad-website-buckets --query 'Stacks[].Outputs[?OutputKey==`ApiBucketName`].OutputValue' --output text)`
+
+Create API gateway and Lamba functions `aws cloudformation create-stack --stack-name helipad-api --template-body file://cloudformation/04_api.yaml`
 
 4. Create API gateway and lambda functions `aws cloudformation create-stack --stack-name helipad-api --template-body file://cloudformation/04_api.yaml --parameters ParameterKey=SwaggerBody,ParameterValue=file://api/swagger.json`
 
-5. Wait for stack to finish creating and Sync S3 buckets `aws cloudformation wait stack-create-complete --stack-name helipad-website-buckets | aws s3 sync html $(echo s3://)$(aws cloudformation describe-stacks --stack-name helipad-website-buckets --query 'Stacks[].Outputs[?OutputKey==`RootBucketName`].OutputValue' --output text)`
+
+6. Sync lambda and deploy API + lambda functions
 
 
 ## DNS settings

@@ -27,8 +27,9 @@ Resources:
             Principal: "*"            
   RootBucket:
     Type: AWS::S3::Bucket
+    DeletionPolicy: Retain
     Properties:
-      AccessControl: PublicRead
+      AccessControl: PublicRead      
       WebsiteConfiguration:
         IndexDocument: index.html
         ErrorDocument: 404.html
@@ -39,7 +40,7 @@ Resources:
       WebsiteConfiguration:
         RedirectAllRequestsTo:
           HostName: !Ref RootBucket
-  ContentBucket:
+  ApiContentBucket:
     Type: AWS::S3::Bucket
     Properties:
       AccessControl: BucketOwnerFullControl
@@ -60,9 +61,8 @@ Outputs:
     Description: Domain name for for www. subdomain name website hosted on S3
     Export:
       Name: HelipadWWWDomainName
-  ContentBucketName:
-    # Value: !GetAtt ContentBucket.DomainName
-    Value: !Ref ContentBucket
-    Description: Domain name for for ContentBucket
+  ApiBucketName:
+    Value: !Ref ApiContentBucket
+    Description: Domain name for for ApiContentBucket
     Export:
-      Name: HelipadContentBucketDomainName
+      Name: HelipadApiContentBucketDomainName
