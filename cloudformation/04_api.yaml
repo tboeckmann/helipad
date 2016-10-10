@@ -1,0 +1,16 @@
+---
+AWSTemplateFormatVersion: '2010-09-09'
+Parameters: 
+  SwaggerBody:
+    Description: The body of the SwaggerFile
+    Type: String
+  
+Resources:
+  HelipadRestAPI: 
+    Type: "AWS::ApiGateway::RestApi"
+    Properties: 
+      Body: !Ref SwaggerBody
+      Description: "Helipad super simple API"
+      Name: "HelipadRestAPI"
+
+  
