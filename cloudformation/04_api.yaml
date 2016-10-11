@@ -26,14 +26,53 @@ Resources:
       Code:
         S3Bucket: !ImportValue HelipadApiContentBucketDomainName      
         S3Key: lambda/python-create-user.zip        
-      Runtime: python2.7  
+      Runtime: python2.7
+  UserApiResource: 
+    Type: "AWS::ApiGateway::Resource"
+    Properties: 
+      RestApiId: !Ref HelipadRestAPI
+      ParentId: 
+        Fn::GetAtt: 
+          - "HelipadRestAPI"
+          - "RootResourceId"
+      PathPart: "users"    
+  HelipadCreateUserApiMethod: 
+    Type: "AWS::ApiGateway::Method"
+    Properties: 
+      RestApiId: !Ref HelipadRestAPI
+      ResourceId: !Ref UserApiResource
+      HttpMethod: "PUT"
+      AuthorizationType: "NONE"
+      Integration: 
+        Type: "AWS"  
+        Uri:
+          Fn::Join: 
+            - ""
+            -
+              - "arn:aws:apigateway:"
+              - !Ref "AWS::Region"
+              - ":lambda:path/2015-03-31/functions/"
+              - !GetAtt CreateUserFunction.Arn
+              - "/invocations"
+        IntegrationHttpMethod: "PUT"
+  HelipadDeployment: 
+    DependsOn: "HelipadCreateUserApiMethod"
+    Type: "AWS::ApiGateway::Deployment"
+    Properties: 
+      RestApiId: !Ref HelipadRestAPI
+  Prod: 
+    Type: "AWS::ApiGateway::Stage"
+    Properties: 
+      StageName: "Prod"
+      Description: "Prod Stage"
+      RestApiId: !Ref HelipadRestAPI
+      DeploymentId: !Ref HelipadDeployment
+      Variables: 
+        Stack: "Prod"
   HelipadRestAPI: 
     Type: "AWS::ApiGateway::RestApi"
     Properties: 
-      BodyS3Location: 
-        Key: swagger.yaml
-        Bucket: !ImportValue HelipadApiContentBucketDomainName      
       Description: "Helipad super simple API"
-      Name: "HelipadRestAPI"
+      Name: "HelipadRestAPI" 
 
   
