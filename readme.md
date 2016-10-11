@@ -27,9 +27,9 @@ With AWS if you dont already have one
 
 5. Sync S3 buckets `aws s3 sync html $(echo s3://)$(aws cloudformation describe-stacks --stack-name helipad-website-buckets --query 'Stacks[].Outputs[?OutputKey==`RootBucketName`].OutputValue' --output text)`
 
-6. Sync API bucket `aws s3 sync api $(echo s3://)$(aws cloudformation describe-stacks --stack-name helipad-website-buckets --query 'Stacks[].Outputs[?OutputKey==`ApiBucketName`].OutputValue' --output text)`
+6. Zip lambda and Sync API bucket `zip api/lambda/python-create-user.zip api/lambda/python-create-user.py  | aws s3 sync api $(echo s3://)$(aws cloudformation describe-stacks --stack-name helipad-website-buckets --query 'Stacks[].Outputs[?OutputKey==`ApiBucketName`].OutputValue' --output text)`
 
-Create API gateway and Lamba functions `aws cloudformation create-stack --stack-name helipad-api --template-body file://cloudformation/04_api.yaml`
+Create API gateway and Lamba functions `aws cloudformation create-stack --stack-name helipad-api --template-body file://cloudformation/04_api.yaml  --capabilities CAPABILITY_IAM`
 
 4. Create API gateway and lambda functions `aws cloudformation create-stack --stack-name helipad-api --template-body file://cloudformation/04_api.yaml --parameters ParameterKey=SwaggerBody,ParameterValue=file://api/swagger.json`
 
